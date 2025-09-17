@@ -1,0 +1,21 @@
+uvicorn app_voicebot:app --reload --host 0.0.0.0 --port 8000
+cloudflared tunnel --url http://localhost:8000 ---> il link che si riceve deve essere messo nel .env e su twilio
+cloudflared tunnel --url http://localhost:4242 ---> il link che si riceve deve essere messo nel webhook di Stripe
+
+N.B. ----> tutto deve essere lasciato in modalità RU
+
+
+Comandi per aggiornare file locali su Contabo:
+
+scp -r C:\Users\deidd\PycharmProjects\VoiceBot\* root@173.249.26.122:/opt/voicebot/
+scp C:\Users\deidd\PycharmProjects\VoiceBot\.env root@173.249.26.122:/opt/voicebot/.env     (per aggiornare solo il file che si desidera)
+
+
+
+Comandi per PowerShell Contabo:
+
+ssh root@173.249.26.122 (IP di Contabo) ---> serve per entrare dentro Contabo
+systemctl status voicebot stripe-webhook lead-watcher lead-scheduler ---> per verificare lo stato
+systemctl stop voicebot stripe-webhook lead-watcher lead-scheduler ---> per stoppare
+systemctl restart voicebot stripe-webhook lead-watcher lead-scheduler ---> per far ripartire
+
